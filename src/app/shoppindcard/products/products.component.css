@@ -1,0 +1,109 @@
+.mycard {
+    width: 70%;
+    margin-left: 15%;
+
+}
+
+.status {
+    margin-left: 20px;
+    border-radius: 3%;
+    display: flex;
+    padding-left: 20px;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+
+}
+
+.status.p {
+    text-align: center;
+}
+
+.flt {
+    float: left;
+}
+
+
+.Falseclass {
+
+    text-shadow: 2cm;
+    color: blue;
+}
+
+
+.Trueclass {
+    text-shadow: 3cm;
+
+}
+
+.fl {
+    float: left;
+    margin: 5px;
+    font-size: large;
+
+}
+
+.fr {
+    float: right;
+}
+
+
+.even {
+    color: blueviolet;
+    font-size: large;
+    text-decoration: solid;
+    background-color: rgba(171, 187, 245, 0.308);
+    text-align: center;
+}
+
+.odd {
+    color: brown;
+    font-size: large;
+    text-decoration: solid;
+    background-color: rgba(220, 123, 123, 0.183);
+    border-radius: 3%;
+    text-align: center;
+}
+
+.dd {
+    width: 40%;
+    border-radius: 8px;
+
+}
+
+.crs {
+    cursor: pointer;
+    opacity: 80%;
+    text-decoration: none;
+}
+
+.crs:hover {
+    opacity: 50%;
+    color: blue;
+}
+
+.colm {
+    width: 80%;
+    margin-left: 5%;
+
+}
+
+.btlf {
+
+    float: right;
+
+}
+
+.btnl {
+    float: left;
+}
+
+.count {
+    size: 100px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    padding: auto;
+
+
+}

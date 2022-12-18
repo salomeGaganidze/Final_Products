@@ -1,0 +1,112 @@
+<!-- SEARCH -->
+
+<div class="container p-2 colm">
+  <div class="form-inline my-2 my-lg-0">
+    <div class="srch">
+      <div class="inp btnl">
+        <input
+          class="form-control mr-sm-6 pl-2"
+          type="text"
+          placeholder="Search For Products ..."
+          [(ngModel)]="searchword"
+          (keyup.enter)="getSearchResults()"
+        />
+      </div>
+      <div>
+        <button
+          class="btn btn-light my-2 my-sm-0"
+          id="button-addon2"
+          type="button"
+          (click)="getSearchResults()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS  -->
+<div class="container">
+  <div class="row">
+    <ng-container *ngFor="let item of products">
+      <div class="card card-body mt-2" *ngIf="item.stock !== 0">
+        <div
+          class="d-flex align-items-center justify-content-between text-lg-left flex-column flex-lg-row"
+        >
+          <div class="mr-2 mb-3 mb-lg-0">
+            <img [src]="item.thumbnail" width="150" height="150" alt="" />
+          </div>
+
+          <div class="mb-3 description-text">
+            <div class="d-flex" class="flt">
+              <h6 class="mt-3 mt-lg-0 ml-lg-3 text-center">
+                <a class="text-center crs" (click)="directToProduct(item.id)"
+                  >{{ item.title | titlecase }}
+                </a>
+              </h6>
+            </div>
+          </div>
+
+          <div
+            class="status mb-3"
+            [ngStyle]="{ color: item.stock !== 0 ? 'green' : 'red' }"
+          >
+            <p [ngClass]="setclass(item.stock)">
+              {{ item.stock !== 0 ? "Available" : "Sold out" }}
+            </p>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <p class="mb-3 description-text">
+              {{ item.description | cUstomPipe : 3 }}
+            </p>
+          </div>
+
+          <div
+            class="mt-3 mt-lg-0 ml-lg-3 text-center"
+            [ngSwitch]="!item.stock"
+          >
+            <h6 class="mb-0 font-weight-semibold">
+              {{ item.price | currency : "USD" }}
+            </h6>
+
+            <div>
+              <app-starts
+                [starNum]="5"
+                (myOutpt)="getchildsdt($event)"
+                [ratestr]="item.rating"
+              >
+              </app-starts>
+            </div>
+            <a>{{ item.rating }}</a>
+
+            <div class="text-muted">
+              reviews
+              <p></p>
+            </div>
+
+            <div>
+              <button
+                type="button"
+                class="btn btn-warning mt-4 text-white"
+                *ngSwitchCase="false"
+              >
+                <i class="bi bi-bag-heart"></i> Add to cart
+              </button>
+              <br />
+              <button
+                type="button"
+                class="btn btn-danger mt-4 text-white"
+                *ngSwitchCase="false"
+              >
+                <i class="bi bi-bag-heart"></i> Delete from cart
+              </button>
+            </div>
+
+            <p class="text-damger" *ngSwitchCase="true">Sold Out</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

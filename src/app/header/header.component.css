@@ -1,0 +1,38 @@
+.dv
+{
+   width: auto;
+
+}
+
+.srch 
+{
+  position:absolute; 
+  top:5px; 
+  right:5px;
+}
+
+.inp
+
+{
+    float: left;
+    padding-right: 5px;
+}
+.active 
+{
+  text-decoration: solid; 
+  text-shadow: 10px;
+}
+
+.btn 
+{
+float :right;
+
+}
+.hvr
+{
+  cursor: pointer;
+  text-align: right !important;
+  color: blue;
+  
+}
+

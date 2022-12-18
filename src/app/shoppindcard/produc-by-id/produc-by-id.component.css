@@ -1,0 +1,16 @@
+.pnt 
+{
+    cursor: pointer;
+}
+
+img {
+    float: left;
+    padding: 10px;
+
+    
+  }
+
+  .tdl
+  {
+    text-decoration: line-through;
+  }

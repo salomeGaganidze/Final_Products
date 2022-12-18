@@ -1,0 +1,5 @@
+<span *ngFor ="let star of mystartsarray"
+[ngClass]="star <= this.ratestr ? 'fill' : '' "
+>
+<i class="bi bi-star-fill"  (click)="getStarNumber(this.star)"></i>
+</span>

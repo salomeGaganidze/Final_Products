@@ -1,0 +1,146 @@
+<div class="form-div">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="myf">
+      <div class="form-row">
+        <h2 class="title">Product Review</h2>
+        <div class="form-group col-md-6">
+          <label>First name</label>
+          <input
+            formControlName="firstName"
+            type="firstName"
+            class="form-control"
+            placeholder="First name"
+          />
+          <div
+            class="text-danger"
+            *ngIf="!FirstName.valid && FirstName?.touched"
+          >
+            Please fill the required fields
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="myf">
+      <div class="form-group col-md-6">
+        <label>Last name</label>
+        <input
+          formControlName="lastName"
+          type="lastName"
+          class="form-control"
+          placeholder="Last name"
+        />
+
+        <div
+          class="text-danger"
+          *ngIf="LastName.errors?.['required'] && LastName?.touched"
+        >
+          Please fill the required fields
+        </div>
+
+        <div
+          class="text-danger"
+          *ngIf="LastName.errors?.['notValidLength'] &&  LastName.dirty"
+        >
+          More then 25 words
+        </div>
+      </div>
+    </div>
+
+    <div class="myf">
+      <div class="form-row">
+        <div class="form-group col-md-4" formArrayName="email">
+          <label>Contact</label>
+          <ng-container *ngFor="let item of email['controls']; let i = index">
+            <input
+              type="text"
+              class="form-control mb-2"
+              formControlName="{{ i }}"
+            />
+
+            <div
+              class="text-danger"
+              *ngIf="!item?.valid && (item?.touched || item.dirty)"
+            >
+              Please fill the required fields
+            </div>
+          </ng-container>
+          <a (click)="addContact()" class="add">add contact </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="myf">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>Please Rate </label>
+          <select class="form-control" formControlName="rate" type="rate">
+            <option value="st">Satisfied</option>
+            <option value="nt">Neutral</option>
+            <option value="dst">Dissatisfied</option>
+          </select>
+          <div class="text-danger" *ngIf="!rate?.valid && rate?.touched">
+            Please fill the required fields {{ rate.valid }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="myf">
+      <div class="form-group">
+        <label name="review">Review</label>
+        <textarea
+          class="form-control"
+          rows="4"
+          placeholder="Your Review"
+          formControlName="review"
+          type="review"
+        ></textarea>
+
+        <div class="text-danger" *ngIf="review.errors">
+          <div *ngIf="review.errors?.['required'] && review.touched">
+            Please fill the required fields
+          </div>
+
+          <div *ngIf="review.errors?.['minlength'] ">
+            Length should be min
+            {{review.errors?.['minlength'].requiredLength}} symbols
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stars">
+      <strong>Star Rate : </strong> <br />
+      <app-starts [starNum]="5" (myOutpt)="getchildsdt($event)"> </app-starts>
+    </div>
+
+    <div class="stars">
+      <i>
+        <p>{{ myDate | date : "mediumDate" : "MMM d, y" }}</p>
+      </i>
+    </div>
+
+    <div class="bttns">
+      <div class="myf" class="lft">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+
+      <div class="myf" class="flt">
+        <button type="button" class="btn btn-primary" (click)="setDefVal()">
+          Default
+        </button>
+      </div>
+
+      <div class="myf" class="flt2">
+        <button type="button" class="btn btn-primary" (click)="chanageVal()">
+          Change
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<h2 class="title">Review Result</h2>
+<app-reactive-result [myFormInp]="this.myForm.value" [myStart]="this.myRate">
+</app-reactive-result>

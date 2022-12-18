@@ -1,0 +1,59 @@
+<div class="container mt-5 mb-5" *ngIf="products">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="images p-3">
+              <div class="text-center">
+                <img
+                  alt="main-image"
+                  src="{{ products.thumbnail }}"
+                  width="380"
+                />
+              </div>
+              <div
+                class="thumbnail text-center"
+                *ngFor="let pic of products.images"
+              >
+                <img onclick="change_image(this)" src="{{ pic }}" width="90" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="product p-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                   <i (click)="nabigateToProds()"class="bi bi-arrow-left p-1 pnt"></i> 
+                  <span class="ml-1">Back</span>
+                </div>
+                <i class="fa fa-shopping-cart text-muted"></i>
+              </div>
+              <div class="mt-4 mb-3">
+                <h5 class="text-uppercase">{{ products.title }}</h5>
+                <div class="price d-flex flex-row align-items-center">
+                  <span class="act-price"
+                    ><strong>Price :</strong> {{ products.price | currency : 'USD' : 'symbol' : '1.0-1'  }} -
+                  </span>
+                  <div class="ml-2 p-3">
+                    <span> <i class="text-danger ">{{products.discountPercentage  }}% </i></span>
+                  </div>
+                </div>
+              </div>
+              <p class="about">
+                {{ products.description }}
+              </p>
+              <div class="cart mt-4 align-items-center">
+                <button class="btn btn-danger text-uppercase mr-2 px-4">
+                  Add to cart
+                </button>
+                <i class="fa fa-heart text-muted"></i>
+                <i class="fa fa-share-alt text-muted"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
