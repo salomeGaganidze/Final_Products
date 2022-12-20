@@ -21,7 +21,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MainComponent,
     ReactiveFormComponent,
     FooterComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
 
   imports: [

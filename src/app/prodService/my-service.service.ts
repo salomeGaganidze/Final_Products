@@ -5,7 +5,7 @@ import {
   IBaseProducts,
   IProductCard,
 } from '../shoppindcard/products/product.interface';
-import { concatMap, filter, map, Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -31,4 +31,13 @@ export class MyServiceService {
       })
       .pipe(map((data) => data.products));
   }
+
+  deleteItem(id: number): Observable<IProductCard[] | undefined> {
+    return this._http
+      .delete<any>(`${baseUrl}/products/${id}`)
+      .pipe(map((result) => result));
+  }
+
+
+
 }

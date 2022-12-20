@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyServiceService } from 'src/app/prodService/my-service.service';
 import { IProductCard } from '../products/product.interface';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-produc-by-id',
@@ -24,16 +25,17 @@ export class ProducByIdComponent implements OnInit {
     oldPrice: 0,
   };
   constructor(
-    private _singleProd: MyServiceService,
+  
     private _activeId: ActivatedRoute,
     private _router: Router
   ) {}
 
   ngOnInit(): void {
-    const prodId = Number(this._activeId.snapshot.paramMap.get('id'));
-    this._singleProd.getSingleProduct(prodId).subscribe((result) => {
-      this.products = result;
-    });
+    this._activeId.data
+      .pipe(map((res) => res['ProdToShow']))
+      .subscribe((result) => {
+        this.products = result;
+      });
 
     console.log(this.products);
   }

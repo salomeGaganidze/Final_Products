@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MyServiceService } from 'src/app/prodService/my-service.service';
 import { IProductCard } from './product.interface';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -14,9 +14,14 @@ export class ProductsComponent implements OnInit {
   products: IProductCard[] | undefined;
   MyArray = [0];
   searchword: string = '';
-  coutnArray: number[] = [1, 2];
+  coutnArray: number[] = [];
+  addedItems: IProductCard[] = [];
 
-  constructor(private _service: MyServiceService, private _router: Router) {}
+  constructor(
+    private _service: MyServiceService,
+    private _router: Router,
+    private _actievData: ActivatedRoute
+  ) {}
   setclass(bl: number | undefined | null) {
     if (bl !== undefined && bl !== null && bl > 0) {
       return 'Trueclass';
@@ -41,13 +46,9 @@ export class ProductsComponent implements OnInit {
   }
 
   dataUpdate() {
-    this.MyArray.shift();
-    for (let i = 0; i < 8; i++) {
-      this.MyArray.push(Math.floor(Math.random() * 10));
-    }
-
-    this._service.getdata().subscribe((result) => (this.products = result));
-    //console.log(this.products) aq e=ro dzveli price gammoitano  result.price = result.price * .. ar shveb errordeba da gaarkvie
+    this._actievData.data
+      .pipe(map((res) => res['DataToShow']))
+      .subscribe((result) => (this.products = result));
   }
 
   directToProduct(prodId: number) {
@@ -59,5 +60,28 @@ export class ProductsComponent implements OnInit {
     this._service
       .searchProduct(this.searchword)
       .subscribe((result) => (this.products = result));
+  }
+  deleteItem(id: number) {
+    this._service.deleteItem(id).subscribe(
+      (res: any) =>
+        (this.products = this.products?.filter((result) => {
+          return result.id !== res.id;
+        }))
+    );
+  }
+
+  getProductToAdd(id: number) {
+    if (this.addedItems.filter((x) => x.id == id).length == 0) {
+      this._service
+        .getSingleProduct(id)
+        .subscribe((result: any) => this.addedItems.push(result));
+      console.log(this.addedItems);
+    }
+  }
+
+  delItem(id: number) {
+    this.addedItems = this.addedItems.filter((result) => {
+      return result.id != id;
+    });
   }
 }

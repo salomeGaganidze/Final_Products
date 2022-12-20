@@ -85,6 +85,7 @@
 .colm {
     width: 80%;
     margin-left: 5%;
+    position :relative;
 
 }
 
@@ -106,4 +107,34 @@
     padding: auto;
 
 
+}
+
+.mybtn {
+    padding: 10px;
+    border-radius: 10px;
+
+}
+
+
+
+.mycnt {
+    border: 1px solid rgba(175, 173, 173, 0.532);
+    border-radius: 3px;
+    width: auto;
+    padding: 5px;
+    margin: 5px;
+    display: inline-flex;
+    background-color: rgba(35, 223, 85, 0.1);
+
+}
+
+
+.bagcls {
+
+    width: auto;
+    height: 100px;
+}
+
+.dashicn {
+    cursor: pointer;
 }

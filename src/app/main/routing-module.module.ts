@@ -5,6 +5,8 @@ import { ProductsComponent } from '../shoppindcard/products/products.component';
 import { ReactiveFormComponent } from '../reactive-form/reactive-form.component';
 import { ProducByIdComponent } from '../shoppindcard/produc-by-id/produc-by-id.component';
 import { AuthGGuard } from '../auth/login/Guard/auth-g.guard';
+import { ProductsResolverResolver } from '../shoppindcard/prodResolver/products-resolver.resolver';
+import { DataResolver } from '../shoppindcard/prodDataresolver/data.resolver';
 
 const ROUTES: Route[] = [
   {
@@ -19,10 +21,12 @@ const ROUTES: Route[] = [
       {
         path: 'products',
         component: ProductsComponent,
+        resolve : {DataToShow : DataResolver}
       },
       {
         path: 'products/:id',
         component: ProducByIdComponent,
+        resolve: {ProdToShow : ProductsResolverResolver },
       },
 
       {

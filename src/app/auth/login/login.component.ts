@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
 import { mailValid } from 'src/app/coreData/checkMailValidator';
 import { authService } from '../authService/authUserData.service';
 
