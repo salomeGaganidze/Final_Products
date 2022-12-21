@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { Observable, tap, throwError } from 'rxjs';
 import { baseUrl } from 'src/app/coreData/objects';
 import { LocalStorageService } from 'src/app/coreData/storage.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +20,18 @@ export class authService {
         username: form.email,
         password: form.password,
       })
-      .pipe(tap((result: any) => this._localtStorage.setItem('Token', result)));
+      .pipe(
+        // catchError(this.errorHandler),
+        tap((result: any) => this._localtStorage.setItem('Token', result))
+      );
   }
 
   autorizedUser() {
     return this._localtStorage.itemExists('Token');
+  }
+
+  errorHandler(error: HttpErrorResponse) {
+    console.log(throwError(() => new Error(`${error.message} Invalid Login`)))
+    return throwError(() => new Error(`${error} Invalid Login`));
   }
 }

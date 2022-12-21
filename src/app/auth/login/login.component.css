@@ -1,0 +1,8 @@
+.myerror{
+border-radius: 3px;
+border-color: rgba(219, 83, 83, 0.623);
+background-color: rgba(198, 20, 20, 0.338);
+padding: 10px;
+color: white;
+text-align: center;
+}

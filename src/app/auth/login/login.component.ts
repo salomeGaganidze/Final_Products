@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
+import { catchError, map, of, throwError } from 'rxjs';
 import { mailValid } from 'src/app/coreData/checkMailValidator';
 import { authService } from '../authService/authUserData.service';
 
@@ -17,6 +17,7 @@ import { authService } from '../authService/authUserData.service';
 })
 export class LoginComponent implements OnInit {
   AuthForm: FormGroup;
+  ErrorMsg: string = '';
 
   constructor(
     private _router: Router,
@@ -35,9 +36,23 @@ export class LoginComponent implements OnInit {
     if (this.AuthForm.valid) {
       console.log(`Yoir Form Is Valid :  ${this.AuthForm.value}`);
       console.log(this.AuthForm.value);
-      this._serv.authUserData(this.AuthForm.value).subscribe(() => {
-        this._router.navigate(['main/products']);
-      });
+      this._serv
+        .authUserData(this.AuthForm.value)
+        .pipe(
+          // map((res: any) => res['payload']),
+          // catchError((err) => {
+          //   console.log('caught mapping error and rethrowing', err.error);
+          //   return throwError(() => new Error(err));
+          // }),
+          catchError((err) => {
+            this.ErrorMsg = err.error.message;
+            console.log(this.ErrorMsg);
+            return of([]);
+          })
+        )
+        .subscribe(() => {
+          this._router.navigate(['main/products']);
+        });
 
       // this._router.navigate(['main/products']);
     } else {
